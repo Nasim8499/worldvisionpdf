@@ -51,13 +51,13 @@ export async function trackPageView(pageNumber: number, publicationId?: string |
   } catch {}
 }
 
-export async function trackCta(cta_key: string, page_number?: number, metadata?: Record<string, unknown>) {
+export async function trackCta(cta_key: string, page_number?: number, metadata?: Record<string, string | number | boolean | null>) {
   try {
     await supabase.from("cta_clicks").insert({
       session_token: getSessionToken(),
       cta_key,
       page_number: page_number ?? null,
-      metadata: metadata ?? {},
+      metadata: (metadata ?? {}) as never,
     });
   } catch {}
 }
